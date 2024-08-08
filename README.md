@@ -12,10 +12,10 @@ The goal is to get as close to 1-to-1 pariarty as possible with the hash types a
 If you have a request, find a bug, or would like to help with this endevor, submit an issue or pull request on https://github.com/Laminad/passhashgen
 
 # Dislcaimer
-DISCLAIMER: Please do not use this for production password hashing implementations. It has not been validated for that purpose. If you do choose to do so, I accept no liabilty or responsibilty for the outcome.
+Please do not use this for production password hashing implementations. It has not been validated for that purpose. If you do choose to do so, I will not accept liabilty or responsibilty for the outcome.
 
 # Installation
-This script can be run standalone as long as the dependencies are installed. Pyinstaller can also be used to create binary/executable to run.
+This script can be run standalone as long as the dependencies are installed. Pyinstaller can also be used to create binary/executable file to run. I recommend using pyinstaller as it is easier to use in aliases and will validate dependencies.
 
 # Dependencies
 Pyinstaller should validate the dependencies, but if you have issues these are the python libraries used.
@@ -54,7 +54,7 @@ Set-Alias -Name phg -Value "C:\filepath\to\passhashgen\dist\passhashgen.exe"
 ```
 
 
-Testing the install and Alias:
+# Testing the install and Alias:
 Linux without alias:
 ```
 ┌──(laminad㉿DESKTOP-JUJ33CH)-[~/.passhashgen/dist]
