@@ -1,5 +1,4 @@
-# Introduction
-PassHashGen (PHG)
+# PassHashGen (PHG)
 
 PassHashGen is a program that generates passwords of the specified length, number, and strength[0-3]. PHG also provides the option to hash the generated password(s) and output either the hash(es), password(s), or both to the specified text file(s) or console. PHG also has an option to read a text file of password(s) and convert them to a hash of specified type.
 
