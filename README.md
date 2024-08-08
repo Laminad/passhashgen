@@ -4,7 +4,8 @@ PassHashGen (PHG)
 PassHashGen is a program that generates passwords of the specified length, number, and strength[0-3]. PHG also provides the option to hash the generated password(s) and output either the hash(es), password(s), or both to the specified text file(s) or console. PHG also has an option to read a text file of password(s) and convert them to a hash of specified type.
 
 # Purpose
-This library is for research and practice purposes with hashcat and johntheripper. It allows you to generate a set number of passwords and hashes of a specific type to test the capabilities of your system without having to use real password dumps.
+This library is for research and practice purposes. It should be used with hashcat and johntheripper to generate a set number of passwords and hashes of a specific type to test the capabilities of your system without having to use real password dumps.
+As the functionalities of the library are expanded additional features like charset mask and dictionary building may be added.
 Current hashing capabilities: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, shake_256
 The goal is to get as close to 1-to-1 pariarty as possible with the hash types available in hashcat and johntheripper.
 
@@ -13,6 +14,10 @@ If you have a request, find a bug, or would like to help with this endevor, subm
 
 # Dislcaimer
 Please do not use this for production password hashing implementations. It has not been validated for that purpose. If you do choose to do so, I will not accept liabilty or responsibilty for the outcome.
+
+# Known Issues
+The quiet flag currently doesn't work. Will be updating to a python logging library to resolve the issue
+inputting zero options should output a single strong password of 8 characters, but is not currently. Logic in the main function needs to be modified
 
 # Installation
 This script can be run standalone as long as the dependencies are installed. Pyinstaller can also be used to create binary/executable file to run. I recommend using pyinstaller as it is easier to use in aliases and will validate dependencies.
