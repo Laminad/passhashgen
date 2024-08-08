@@ -5,24 +5,6 @@ import sys
 import os
 
 
-def quiet_print(func):
-    def print_wrapper(*args, **kwargs):
-        sys.stdout = open(os.devnull, "w")
-        value = func(*args, **kwargs)
-        sys.stdout = sys.__stdout__
-        return value
-    return print_wrapper
-
-
-def loud_print(func):
-    def print_wrapper(*args, **kwargs):
-        sys.stdout = sys.__stdout__
-        value = func(*args, **kwargs)
-        sys.stdout = open(os.devnull, "w")
-        return value
-    return print_wrapper
-
-
 def password_generator(length: int, number: int, strength: int) -> list:
     passwords = []
     pword_string = ""
@@ -100,7 +82,6 @@ def output_file_writer(passwords: list, hashed_passwords: list, pass_file: str, 
     return True
 
 
-# @loud_print
 def hash_printer(hashed_passwords: list, hash_algo: str) -> bool:
     print(f"Generated {hash_algo} Hashes:")
     for hash in hashed_passwords:
@@ -108,7 +89,6 @@ def hash_printer(hashed_passwords: list, hash_algo: str) -> bool:
     return True
 
 
-# @loud_print
 def pass_printer(passwords: list) -> bool:
     print("Generated Passwords:")
     for password in passwords:
@@ -198,8 +178,5 @@ if __name__ == "__main__":
     args = parser.parse_args()
     print("Starting password generation and/or hashing process")
     arguement_validator(args)
-    if args.quiet == 1:
-        quiet_print(main(args))
-    else:
-        main(args)
+    main(args)
     print("Password and/or hash generation process is complete")
