@@ -11,11 +11,11 @@ As the functionalities of the library are expanded additional features like char
 md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, shake_256
 The goal is to get as close to 1-to-1 pariarty as possible with the hash types available in hashcat and johntheripper.
 
-### Reporting Issues or Feature Requests
-If you have a request, find a bug, or would like to help with this endevor, submit an issue or pull request on https://github.com/Laminad/passhashgen
-
 # Dislcaimer
 Please do not use this for production password hashing implementations. It has not been validated for that purpose. If you do choose to do so, I will not accept liabilty or responsibilty for the outcome.
+
+### Reporting Issues or Feature Requests
+If you have a request, find a bug, or would like to help with this endevor, submit an issue or pull request on https://github.com/Laminad/passhashgen
 
 ### Known Issues
 1. The quiet flag currently doesn't work. Will be updating to a python logging library to resolve the issue.
