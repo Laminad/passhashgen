@@ -148,9 +148,9 @@ def main(args):
     if pass_file != None or hash_file != None:
         print("Writing passwords and/or hashes to the output file")
         output_file_writer(passwords, hashed_passwords, pass_file, hash_file)
-    if print_pass == 1:
+    if print_pass == 1 and pass_file != None:
         pass_printer(passwords)
-    if print_hash == 1:
+    if print_hash == 1 and hash_file != None:
         hash_printer(hashed_passwords, hash_algo)
     if pass_file == None and hash_file == None:
         print("Printing passwords and/or hashes to console because no output files were specified")
@@ -174,7 +174,7 @@ def arguement_validator(args):
     if args.hash_file == None and args.print_hash == 0:
         print("Invalid options set for hash output. Printing to console")
         args.print_hash = 1
-    if args.hash_algo not in hashtypes:
+    if args.hash_file != None and args.hash_algo not in hashtypes:
         print(f"Hashing algorithm {args.hash_algo} provided is invalid")
         sys.exit()
 
