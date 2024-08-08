@@ -18,25 +18,31 @@ DISCLAIMER: Please do not use this for production password hashing implementatio
 This script can be run standalone as long as the dependencies are installed. Pyinstaller can also be used to create binary/executable to run.
 
 # PyInstaller Instructions:
-`pip install -U pyinstaller`
-`git clone https://github.com/Laminad/passhashgen`
-`cd /passhashgen`
-`pyinstaller -F passhashgen.py`
+```
+pip install -U pyinstaller
+git clone https://github.com/Laminad/passhashgen
+cd /passhashgen
+pyinstaller -F passhashgen.py
+```
 
 # Post Installation:
 I recommend setting up a shell alias to call the binary/executable after completing the build to run the application
 
 Linux bash/zsh:
-`[vim|nvim|nano|code] ~/[.bashrc|.zshrc|.bash_aliases|.zsh_aliases]`
-`alias passhashgen="/path/to/passhashgen/dist/passhashgen.[bin|elf|exe]"`
-`alias phg="/path/to/passhashgen/dist/passhashgen.[bin|elf|exe]"`
-`source ~/.bash_aliases or ~/.zsh_aliases`
-`source ~/.bashrc or ~/.zshrc`
+```
+[vim|nvim|nano|code] ~/[.bashrc|.zshrc|.bash_aliases|.zsh_aliases]
+alias passhashgen="/path/to/passhashgen/dist/passhashgen.[bin|elf|exe]"
+alias phg="/path/to/passhashgen/dist/passhashgen.[bin|elf|exe]"
+source ~/.bash_aliases or ~/.zsh_aliases
+source ~/.bashrc or ~/.zshrc
+```
 
 Windows Powershell: 
-`Set-Alias -Name passhashgen -Value "C:\filepath\to\passhashgen\dist\passhashgen.exe"`
-`Set-Alias -Name phg -Value "C:\filepath\to\passhashgen\dist\passhashgen.exe"`
-`.$profile`
+```
+Set-Alias -Name passhashgen -Value "C:\filepath\to\passhashgen\dist\passhashgen.exe"
+Set-Alias -Name phg -Value "C:\filepath\to\passhashgen\dist\passhashgen.exe"
+.$profile
+```
 
 
 Testing the install and Alias:
