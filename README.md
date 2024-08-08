@@ -3,26 +3,28 @@ PassHashGen (PHG)
 
 PassHashGen is a program that generates passwords of the specified length, number, and strength[0-3]. PHG also provides the option to hash the generated password(s) and output either the hash(es), password(s), or both to the specified text file(s) or console. PHG also has an option to read a text file of password(s) and convert them to a hash of specified type.
 
-# Purpose
+### Purpose
 This library is for research and practice purposes. It should be used with hashcat and johntheripper to generate a set number of passwords and hashes of a specific type to test the capabilities of your system without having to use real password dumps.
 As the functionalities of the library are expanded additional features like charset mask and dictionary building may be added.
-Current hashing capabilities: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, shake_256
+
+### Current hashing capabilities: 
+md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, shake_256
 The goal is to get as close to 1-to-1 pariarty as possible with the hash types available in hashcat and johntheripper.
 
-# Reporting Issues or Feature Requests
+### Reporting Issues or Feature Requests
 If you have a request, find a bug, or would like to help with this endevor, submit an issue or pull request on https://github.com/Laminad/passhashgen
 
 # Dislcaimer
 Please do not use this for production password hashing implementations. It has not been validated for that purpose. If you do choose to do so, I will not accept liabilty or responsibilty for the outcome.
 
-# Known Issues
-The quiet flag currently doesn't work. Will be updating to a python logging library to resolve the issue
-inputting zero options should output a single strong password of 8 characters, but is not currently. Logic in the main function needs to be modified
+### Known Issues
+1. The quiet flag currently doesn't work. Will be updating to a python logging library to resolve the issue.
+2. inputting zero options should output a single strong password of 8 characters, but is not currently. Logic in the main function needs to be modified
 
 # Installation
 This script can be run standalone as long as the dependencies are installed. Pyinstaller can also be used to create binary/executable file to run. I recommend using pyinstaller as it is easier to use in aliases and will validate dependencies.
 
-# Dependencies
+### Dependencies
 Pyinstaller should validate the dependencies, but if you have issues these are the python libraries used.
 ```
 argparse
@@ -31,7 +33,7 @@ libnacl
 pip install argparse cryptography libnacl
 ```
 
-# PyInstaller Instructions:
+### PyInstaller Instructions:
 ```
 pip install -U pyinstaller
 git clone https://github.com/Laminad/passhashgen
@@ -39,7 +41,7 @@ cd /passhashgen
 pyinstaller -F passhashgen.py
 ```
 
-# Post Installation:
+### Post Installation:
 I recommend setting up a shell alias to call the binary/executable after completing the build to run the application
 
 Linux bash/zsh:
@@ -59,7 +61,7 @@ Set-Alias -Name phg -Value "C:\filepath\to\passhashgen\dist\passhashgen.exe"
 ```
 
 
-# Testing the install and Alias:
+### Testing the install and Alias:
 Linux without alias:
 ```
 ┌──(laminad㉿DESKTOP-JUJ33CH)-[~/.passhashgen/dist]
