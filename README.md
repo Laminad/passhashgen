@@ -17,6 +17,15 @@ DISCLAIMER: Please do not use this for production password hashing implementatio
 # Installation
 This script can be run standalone as long as the dependencies are installed. Pyinstaller can also be used to create binary/executable to run.
 
+# Dependencies
+Pyinstaller should validate the dependencies, but if you have issues these are the python libraries used.
+```
+argparse
+cryptography
+libnacl
+pip install argparse cryptography libnacl
+```
+
 # PyInstaller Instructions:
 ```
 pip install -U pyinstaller
