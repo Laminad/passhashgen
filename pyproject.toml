@@ -9,7 +9,7 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.5"
-argparse3 = "^3.0.0"
+argparse = "^3.0.0"
 
 
 [build-system]

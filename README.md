@@ -11,14 +11,15 @@ This library is for research and practice purposes. It should be used with hashc
 1. 1-to-1 parity with the hash types available in hashcat and johntheripper including nested hashing (within reason).
 2. More options to customize the passwords generated.
 3. Charset mask and dictionary/wordlist building based on password generation with randomization so it is still non-trivial to crack
-5. Potentially convert to Cython or utilize Cuda/OpenCL for improved performance
-4. Add Multithreading (Waitng for GIL to be removed and stable in the official Python release)
+4. Potentially convert to Cython or utilize Cuda/OpenCL for improved performance
+5. Add Multithreading (Waitng for GIL to be removed and stable in the official Python release)
+6. Add ability to suppress all console and log output
 
-### Reporting Issues or Feature Requests
+### Reporting Issues or Requesting Features
 If you have a request, find a bug, or would like to help with this endevor, submit an issue or pull request on https://github.com/Laminad/passhashgen
 
 ### Known Issues
-None currently
+Fix log file pathing so that logs can write outside of install directory
 
 # Dislcaimer
 Please do not use this for production password hashing implementations. It has not been validated or designed for that use case. 
