@@ -1,5 +1,5 @@
 passhashgen.spec
 *.txt
+*.log
 /build
 /dist
-/logs
