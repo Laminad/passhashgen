@@ -11,6 +11,8 @@ md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_51
 1. 1-to-1 parity with the hash types available in hashcat and johntheripper (within reason). 
 2. More options to customize the passwords generated.
 3. Charset mask and dictionary/wordlist building based on password generation with randomization so it is still non-trivial to crack
+5. Potentially convert to Cython or Utilize Cuda/OpenCL for improved performance
+4. Add Multithreading (Waitng for GIL to be removed and stable in the official releases)
 
 # Dislcaimer
 Please do not use this for production password hashing implementations. It has not been validated or designed for that use case. 
