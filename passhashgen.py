@@ -6,15 +6,43 @@ import hashlib
 import sys
 
 
-def logfile_logging(logger: logging.Logger) -> logging.Logger:
+def argument_handler() -> argparse.Namespace:
+    parser = argparse.ArgumentParser(
+    prog="\n\nPassHashGen\n\n",
+    description="A program that generates passwords of the specified length, number, and strength with the ability to hash the password(s) after generating. If an output file(s) is/are provided the hash/passwords/both can be written to the file. If an input file of password(s) is provided it will convert them to a hash of specified type.",
+    epilog="Look you want something from me and I want something from you. DOD Base 128 Bit Encryption. What do you think?"
+    )
+    parser.add_argument("-l", dest='length', type=int, action="store", default=8, help="Flag to set the length of password(s) to randomly generate. If not set default length of 8 will be used")
+    parser.add_argument("-n", dest='number', type=int, action="store", default=1, help="Flag to set the number of password(s) to be generated. The default is 1 unless set")
+    parser.add_argument("-s", dest='strength', type=int, action="store", default=3, help="Flag to set the strength of password generated. Set to strong(3) by default [0-3]")
+    parser.add_argument("-m", dest='hash_algo', type=str, action="store", default=None, help="Flag to set the hashing method to complete on password(s). Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256. If not set no hashing will occur")
+    parser.add_argument("-i", dest='input_file', type=str, default=None, help="Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set")
+    parser.add_argument("-op", dest='pass_file', type=str, default=None, help="Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console")
+    parser.add_argument("-oh", dest='hash_file', type=str, default=None, help="Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console")
+    parser.add_argument("-pp", dest='print_pass', type=int, action="store", default=1, help="Flag to enable or disable whether the password(s) print to console. The default is to print the password(s) to console. Not possible to disable if no output file is provided. 1:Enabled 0:Disabled")
+    parser.add_argument("-ph", dest='print_hash', type=int, action="store", default=1, help="Flag to enable or disable whether the hash(es) to console. Not possible to disable if no output files are provided. The default is to print the hashes to console 1:Enabled 0:Disabled")
+    parser.add_argument("-q", dest='quiet', type=int, action="store", default=0, help="Flag to enable or disable whether the status messages print to console other than hash or passwords. The default is to print status to console 1:Enabled 0:Disabled")
+    args = parser.parse_args()
+    return args
+
+
+def logging_factory() -> logging.Logger:
+    logger = logging.getLogger(__name__)
+    logger.setLevel(10) # Debug
+    return logger
+
+
+def logfile_generator(logger: logging.Logger) -> logging.Logger:
     logfile = logging.FileHandler(".\\logs\\phg_log_{:%Y-%m-%d}.log".format(datetime.now()), 'a')
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', "%Y-%m-%d %H:%M:%S")
     logfile.setFormatter(formatter)
     logger.addHandler(logfile)
     return logger
 
 
-def console_logging(logger: logging.Logger) -> logging.Logger:
+def console_streamer(logger: logging.Logger) -> logging.Logger:
     console = logging.StreamHandler(sys.stdout)
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', "%Y-%m-%d %H:%M:%S")
     console.setFormatter(formatter)
     logger.addHandler(console)
     return logger
@@ -123,7 +151,7 @@ def console_printer(passwords: list, hashed_passwords: list, hash_algo: str) -> 
     return True
 
 
-def main(args):
+def main(args: argparse.Namespace):
     passwords = []
     hashed_passwords = []
     length = args.length
@@ -154,9 +182,10 @@ def main(args):
     if pass_file == None and hash_file == None:
         logger.warning("Printing passwords and/or hashes to console because no output files were specified")
         console_printer(passwords, hashed_passwords, hash_algo)
+    logger.info(f"A total of {len(passwords)} password(s) and {len(hashed_passwords)} hash(es) were generated")
     
 
-def arguement_validator(args):
+def arguement_validator(args: argparse.Namespace):
     hashtypes = ["md5", "sha1", "sha224", "sha256", "sha384", "sha512", "sha3_224", "sha3_256", "sha3_384", "sha3_512", "shake_128", "shake_256"]
     if args.length <= 0:
         logger.error(f"Invalid integer provided for length of password unable to generate password(s) of length {args.length}")
@@ -179,31 +208,18 @@ def arguement_validator(args):
 
 
 if __name__ == "__main__":
-    logger = logging.getLogger(__name__)
-    logger.setLevel(10) # Debug
-    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', "%Y-%m-%d %H:%M:%S")
-    parser = argparse.ArgumentParser(
-    prog="\n\nPassHashGen\n\n",
-    description="A program that generates passwords of the specified length, number, and strength with the ability to hash the password(s) after generating. If an output file(s) is/are provided the hash/passwords/both can be written to the file. If an input file of password(s) is provided it will convert them to a hash of specified type.",
-    epilog="Look you want something from me and I want something from you. DOD Base 128 Bit Encryption. What do you think?"
-    )
-    parser.add_argument("-l", dest='length', type=int, action="store", default=8, help="Flag to set the length of password(s) to randomly generate. If not set default length of 8 will be used")
-    parser.add_argument("-n", dest='number', type=int, action="store", default=1, help="Flag to set the number of password(s) to be generated. The default is 1 unless set")
-    parser.add_argument("-s", dest='strength', type=int, action="store", default=3, help="Flag to set the strength of password generated. Set to strong(3) by default [0-3]")
-    parser.add_argument("-m", dest='hash_algo', type=str, action="store", default=None, help="Flag to set the hashing method to complete on password(s). Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256. If not set no hashing will occur")
-    parser.add_argument("-i", dest='input_file', type=str, default=None, help="Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set")
-    parser.add_argument("-op", dest='pass_file', type=str, default=None, help="Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console")
-    parser.add_argument("-oh", dest='hash_file', type=str, default=None, help="Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console")
-    parser.add_argument("-pp", dest='print_pass', type=int, action="store", default=1, help="Flag to enable or disable whether the password(s) print to console. The default is to print the password(s) to console. Not possible to disable if no output file is provided. 1:Enabled 0:Disabled")
-    parser.add_argument("-ph", dest='print_hash', type=int, action="store", default=1, help="Flag to enable or disable whether the hash(es) to console. Not possible to disable if no output files are provided. The default is to print the hashes to console 1:Enabled 0:Disabled")
-    parser.add_argument("-q", dest='quiet', type=int, action="store", default=0, help="Flag to enable or disable whether the status messages print to console other than hash or passwords. The default is to print status to console 1:Enabled 0:Disabled")
-    args = parser.parse_args()
-    if args.quiet != 1:
-        logger = console_logging(logger)
-        logger = logfile_logging(logger)
-    if args.quiet == 1:
-        logger = logfile_logging(logger)
-    logger.info("Starting password generation and/or hashing process")
-    arguement_validator(args)
-    main(args)
-    logger.info("Password and/or hash generation process is complete")
+    try:
+        start_time = datetime.now()
+        logger = logging_factory()
+        args = argument_handler()
+        if args.quiet != 1:
+            logger = console_streamer(logger)
+            logger = logfile_generator(logger)
+        if args.quiet == 1:
+            logger = logfile_generator(logger)
+        logger.info("Starting password generation and/or hashing process")
+        arguement_validator(args)
+        main(args)
+        logger.info(f"Password and/or hash generation process completed in {datetime.now() - start_time} seconds")
+    except KeyboardInterrupt:
+        logger.error("Keyboard Interrupt")

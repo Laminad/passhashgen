@@ -24,6 +24,18 @@ If you have a request, find a bug, or would like to help with this endevor, subm
 ### Known Issues
 None currently that I am aware of
 
+### Usage and Performance
+```
+phg -l 25 -n 100000 -s 3 -m sha3_512
+2024-08-09 00:01:42 - INFO - Starting password generation and/or hashing process
+2024-08-09 00:01:42 - INFO - Generating 100000 password(s) of length 25 and strength 3
+2024-08-09 00:01:43 - INFO - 100000 passwords generated of strength 3 using the characters: 1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()
+2024-08-09 00:01:43 - INFO - Generating 100000 password hash(es) using sha3_512
+2024-08-09 00:01:43 - INFO - 100000 hash(es) generated
+2024-08-09 00:01:49 - INFO - A total of 100000 password(s) and 100000 hash(es) were generated
+2024-08-09 00:01:49 - INFO - Password and/or hash generation process completed in 0:00:06.253063 seconds
+```
+
 # Installation
 This script can be run standalone as long as the dependencies are installed. Pyinstaller can also be used to create binary/executable file to run. I recommend using pyinstaller as it is easier to use in aliases and will validate dependencies.
 
