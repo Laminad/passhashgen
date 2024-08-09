@@ -8,7 +8,7 @@ As the functionalities of the library are expanded additional features like char
 ### Current hashing capabilities: 
 md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, shake_256
 
-The goal is to get as close to 1-to-1 pariarty as possible with the hash types available in hashcat and johntheripper.
+The goal is to get as close to 1-to-1 parity as possible with the hash types available in hashcat and johntheripper.
 
 # Dislcaimer
 Please do not use this for production password hashing implementations. It has not been validated for that purpose. If you do choose to do so, I will not accept liabilty or responsibilty for the outcome.
@@ -17,19 +17,22 @@ Please do not use this for production password hashing implementations. It has n
 If you have a request, find a bug, or would like to help with this endevor, submit an issue or pull request on https://github.com/Laminad/passhashgen
 
 ### Known Issues
-1. The quiet flag currently doesn't work. Will be updating to a python logging library to resolve the issue.
-2. inputting zero options should output a single strong password of 8 characters, but is not currently. Logic in the main function needs to be modified
+None currently that I am aware of
 
 # Installation
 This script can be run standalone as long as the dependencies are installed. Pyinstaller can also be used to create binary/executable file to run. I recommend using pyinstaller as it is easier to use in aliases and will validate dependencies.
 
 ### Dependencies
-Pyinstaller should validate the dependencies, but if you have issues these are the python libraries used.
+Pyinstaller should validate the dependencies, but if you have issues these are the python libraries used. Most are builtin, so they will already be part of a typically python3 installation.
 ```
+os
+sys
+random
+hashlib
+logging
 argparse
 cryptography
-libnacl
-pip install argparse cryptography libnacl
+pip install argparse cryptography logging hashlib random os sys
 ```
 
 ### PyInstaller Instructions:

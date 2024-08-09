@@ -1,8 +1,23 @@
+from datetime import datetime
 from random import randint
 import argparse
+import logging
 import hashlib
 import sys
-import os
+
+
+def logfile_logging(logger: logging.Logger) -> logging.Logger:
+    logfile = logging.FileHandler(".\\logs\\phg_log_{:%Y-%m-%d}.log".format(datetime.now()), 'a')
+    logfile.setFormatter(formatter)
+    logger.addHandler(logfile)
+    return logger
+
+
+def console_logging(logger: logging.Logger) -> logging.Logger:
+    console = logging.StreamHandler(sys.stdout)
+    console.setFormatter(formatter)
+    logger.addHandler(console)
+    return logger
 
 
 def password_generator(length: int, number: int, strength: int) -> list:
@@ -25,7 +40,7 @@ def password_generator(length: int, number: int, strength: int) -> list:
         for _ in range(length):
             password += pword_string[randint(0, (len(pword_string) - 1))]
         passwords.append(password)
-    print(f"{len(passwords)} passwords generated of strength {strength} using the characters: {pword_string}")
+    logger.info(f"{len(passwords)} passwords generated of strength {strength} using the characters: {pword_string}")
     return passwords
 
 
@@ -34,7 +49,7 @@ def hash_generator(passwords: list, hash_algo: str) -> list:
     for password in passwords:
         hash = hashlib.new(hash_algo, password.encode('utf-8')).hexdigest()
         hashed_passwords.append(hash)
-    print(f"{len(hashed_passwords)} hash(es) generated")
+    logger.info(f"{len(hashed_passwords)} hash(es) generated")
     return hashed_passwords
 
 
@@ -43,10 +58,10 @@ def input_file_reader(input_file: str, passwords: list) -> list:
         with open(input_file, "r") as ifile:
             for line in ifile:
                 passwords.append(line)
-            print(f"{len(passwords)} passwords read from file")
+            logger.info(f"{len(passwords)} passwords read from file")
             return passwords
     except FileNotFoundError:
-        print(f"Invalid file path provided for input file {input_file}")
+        logger.error(f"Invalid file path provided for input file {input_file}")
         sys.exit()
 
 
@@ -56,9 +71,9 @@ def pass_file_writer(passwords: list, pass_file: str) -> bool:
                 for password in passwords:
                     pfile.write(f"{password}\n")
                 pfile.close()
-        print(f"{len(passwords)} password(s) written to output file")
+        logger.info(f"{len(passwords)} password(s) written to output file {pass_file}")
     except FileNotFoundError:
-        print(f"Invalid file path provided for password file {args.pass_file}")
+        logger.error(f"Invalid file path provided for password file {pass_file}")
         sys.exit()  
 
 
@@ -68,9 +83,9 @@ def hash_file_writer(hashed_passwords: list, hash_file: str) -> bool:
                 for hash in hashed_passwords:
                     hfile.write(f"{hash}\n")
                 hfile.close()
-        print(f"{len(hashed_passwords)} hashed password(s) written to output file")
+        logger.info(f"{len(hashed_passwords)} hashed password(s) written to output file {hash_file}")
     except FileNotFoundError:
-        print(f"Invalid file path provided for hash file {args.hash_file}")
+        logger.error(f"Invalid file path provided for hash file {hash_file}")
         sys.exit()  
 
 
@@ -83,6 +98,8 @@ def output_file_writer(passwords: list, hashed_passwords: list, pass_file: str, 
 
 
 def hash_printer(hashed_passwords: list, hash_algo: str) -> bool:
+    # Easiest way to make sure this function always prints to console if called is to leave output as print statements
+    # That also ensures that passwords and hashes don't end up getting stored in the log files
     print(f"Generated {hash_algo} Hashes:")
     for hash in hashed_passwords:
         print(hash)
@@ -90,6 +107,8 @@ def hash_printer(hashed_passwords: list, hash_algo: str) -> bool:
 
 
 def pass_printer(passwords: list) -> bool:
+    # Easiest way to make sure this function always prints to console if called is to leave output as print statements
+    # That also ensures that passwords and hashes don't end up getting stored in the log files
     print("Generated Passwords:")
     for password in passwords:
         print(password)
@@ -117,49 +136,52 @@ def main(args):
     print_pass = args.print_pass
     print_hash = args.print_hash
     if input_file == None:
-        print(f"Generating {number} password(s) of length {length} and strength {strength}")
+        logger.info(f"Generating {number} password(s) of length {length} and strength {strength}")
         passwords = password_generator(length, number, strength)
     if input_file != None:
-        print(f"Reading the password input file to hash the values")
+        logger.info(f"Reading the password input file to hash the values")
         passwords = input_file_reader(input_file)
     if hash_algo != None:
-        print(f"Generating {len(passwords)} password hash(es) using {hash_algo}")
+        logger.info(f"Generating {len(passwords)} password hash(es) using {hash_algo}")
         hashed_passwords = hash_generator(passwords, hash_algo)
     if pass_file != None or hash_file != None:
-        print("Writing passwords and/or hashes to the output file")
+        logger.info("Writing passwords and/or hashes to the output file")
         output_file_writer(passwords, hashed_passwords, pass_file, hash_file)
     if print_pass == 1 and pass_file != None:
         pass_printer(passwords)
     if print_hash == 1 and hash_file != None:
         hash_printer(hashed_passwords, hash_algo)
     if pass_file == None and hash_file == None:
-        print("Printing passwords and/or hashes to console because no output files were specified")
+        logger.warning("Printing passwords and/or hashes to console because no output files were specified")
         console_printer(passwords, hashed_passwords, hash_algo)
     
 
 def arguement_validator(args):
     hashtypes = ["md5", "sha1", "sha224", "sha256", "sha384", "sha512", "sha3_224", "sha3_256", "sha3_384", "sha3_512", "shake_128", "shake_256"]
     if args.length <= 0:
-        print(f"Invalid integer provided for length of password unable to generate password(s) of length {args.length}")
+        logger.error(f"Invalid integer provided for length of password unable to generate password(s) of length {args.length}")
         sys.exit()
     if args.number <= 0:
-        print(f"Invalid integer provided for number of password(s) unable to generate {args.number} password(s)")
+        logger.error(f"Invalid integer provided for number of password(s) unable to generate {args.number} password(s)")
         sys.exit()
     if args.input_file != None and args.hash_algo == None:
-        print("Unable to hash password(s) without hashing algorithm specified")
+        logger.error("Unable to hash password(s) without hashing algorithm specified")
         sys.exit()
     if args.pass_file == None and args.print_pass == 0:
-        print("Invalid options set for password output. Printing to console")
+        logger.warning("Invalid options set for password output. Printing to console")
         args.print_pass = 1
     if args.hash_file == None and args.print_hash == 0:
-        print("Invalid options set for hash output. Printing to console")
+        logger.warning("Invalid options set for hash output. Printing to console")
         args.print_hash = 1
     if args.hash_file != None and args.hash_algo not in hashtypes:
-        print(f"Hashing algorithm {args.hash_algo} provided is invalid")
+        logger.error(f"Hashing algorithm {args.hash_algo} provided is invalid")
         sys.exit()
 
 
 if __name__ == "__main__":
+    logger = logging.getLogger(__name__)
+    logger.setLevel(10) # Debug
+    formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', "%Y-%m-%d %H:%M:%S")
     parser = argparse.ArgumentParser(
     prog="\n\nPASSHASHGEN\n\n",
     description="A program that generates passwords of the specified length, number, and strength. The option to hash the password(s) and output either the hash/passwords/both to the specified text file(s) is available. It is also possible to read a text file of password(s) and convert them to a hash of specified type.",
@@ -176,7 +198,12 @@ if __name__ == "__main__":
     parser.add_argument("-ph", dest='print_hash', type=int, action="store", default=1, help="Flag to enable or disable whether the hash(es) to console. Not possible to disable if no output files are provided. The default is to print the hashes to console 1:Enabled 0:Disabled")
     parser.add_argument("-q", dest='quiet', type=int, action="store", default=0, help="Flag to enable or disable whether the status messages print to console other than hash or passwords. The default is to print status to console 1:Enabled 0:Disabled")
     args = parser.parse_args()
-    print("Starting password generation and/or hashing process")
+    if args.quiet != 1:
+        logger = console_logging(logger)
+        logger = logfile_logging(logger)
+    if args.quiet == 1:
+        logger = logfile_logging(logger)
+    logger.info("Starting password generation and/or hashing process")
     arguement_validator(args)
     main(args)
-    print("Password and/or hash generation process is complete")
+    logger.info("Password and/or hash generation process is complete")
