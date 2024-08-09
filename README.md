@@ -55,6 +55,7 @@ source ~/.[bashrc|zshrc|bash_aliases|zsh_aliases]
 
 Windows Powershell: 
 ```
+code $profile
 Set-Alias -Name passhashgen -Value "C:\filepath\to\passhashgen\dist\passhashgen.exe"
 Set-Alias -Name phg -Value "C:\filepath\to\passhashgen\dist\passhashgen.exe"
 .$profile
