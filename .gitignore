@@ -1,6 +1,5 @@
 passhashgen.spec
-sha512_hash.txt
-sha512_raw.txt
+*.txt
 /build
 /dist
 /logs
