@@ -43,7 +43,7 @@ pyinstaller -F passhashgen.py
 ```
 
 ### Post Installation:
-I recommend setting up a shell alias to call the binary/executable after completing the build to run the application
+I recommend setting up a shell alias to call the binary/executable after completing the pyinstaller build.
 
 Linux bash/zsh:
 ```
