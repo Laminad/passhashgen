@@ -51,9 +51,9 @@ def console_streamer(logger: logging.Logger) -> logging.Logger:
 def password_generator(length: int, number: int, strength: int) -> list:
     passwords = []
     pword_string = ""
+    numbers = "1234567890"
     lower_case = "abcdefghijklmnopqrstuvwxyz"
     upper_case = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    numbers = "1234567890"
     symbols = "!@#$%^&*()"
     if strength == 0:
         pword_string = numbers
