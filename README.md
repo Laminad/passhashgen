@@ -65,7 +65,7 @@ pyinstaller -F passhashgen.py
 ### Post Installation:
 I recommend setting up a shell alias to call the binary/executable after completing the pyinstaller build.
 
-Linux bash/zsh:
+Linux/Unix bash/zsh:
 ```
 [vim|nvim|nano|code] ~/.[bashrc|zshrc|bash_aliases|zsh_aliases]
 alias passhashgen="/path/to/passhashgen/dist/passhashgen"
@@ -82,7 +82,7 @@ Set-Alias -Name phg -Value "C:\filepath\to\passhashgen\dist\passhashgen.exe"
 ```
 
 ### Testing the Install and Alias:
-Linux without alias:
+Linux/Unix without alias:
 ```
 ┌──(laminad㉿DESKTOP)-[~/.passhashgen/dist]
 └─$ ./passhashgen -h
@@ -111,7 +111,7 @@ options:
 Look you want something from me and I want something from you. DOD Base 128 Bit Encryption. What do you think?
 ```
 
-Linux with alias:
+Linux/Unix with alias:
 ```
 ┌──(laminad㉿DESKTOP)-[~/.passhashgen/dist]
 └─$ phg -h
