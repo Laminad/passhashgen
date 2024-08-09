@@ -100,6 +100,7 @@ def pass_file_writer(passwords: list, pass_file: str) -> bool:
                     pfile.write(f"{password}\n")
                 pfile.close()
         logger.info(f"{len(passwords)} password(s) written to output file {pass_file}")
+        return True
     except FileNotFoundError:
         logger.error(f"Invalid file path provided for password file {pass_file}")
         sys.exit()  
@@ -112,6 +113,7 @@ def hash_file_writer(hashed_passwords: list, hash_file: str) -> bool:
                     hfile.write(f"{hash}\n")
                 hfile.close()
         logger.info(f"{len(hashed_passwords)} hashed password(s) written to output file {hash_file}")
+        return True
     except FileNotFoundError:
         logger.error(f"Invalid file path provided for hash file {hash_file}")
         sys.exit()  
@@ -151,7 +153,7 @@ def console_printer(passwords: list, hashed_passwords: list, hash_algo: str) -> 
     return True
 
 
-def main(args: argparse.Namespace):
+def main(args: argparse.Namespace) -> bool:
     passwords = []
     hashed_passwords = []
     length = args.length
@@ -183,9 +185,10 @@ def main(args: argparse.Namespace):
         logger.warning("Printing passwords and/or hashes to console because no output files were specified")
         console_printer(passwords, hashed_passwords, hash_algo)
     logger.info(f"A total of {len(passwords)} password(s) and {len(hashed_passwords)} {hash_algo} hash(es) were generated")
+    return True
     
 
-def arguement_validator(args: argparse.Namespace):
+def arguement_validator(args: argparse.Namespace) -> bool:
     hashtypes = ["md5", "sha1", "sha224", "sha256", "sha384", "sha512", "sha3_224", "sha3_256", "sha3_384", "sha3_512", "shake_128", "shake_256"]
     if args.length <= 0:
         logger.error(f"Invalid integer provided for length of password unable to generate password(s) of length {args.length}")
@@ -205,6 +208,7 @@ def arguement_validator(args: argparse.Namespace):
     if args.hash_file != None and args.hash_algo not in hashtypes:
         logger.error(f"Hashing algorithm {args.hash_algo} provided is invalid")
         sys.exit()
+    return True
 
 
 if __name__ == "__main__":
