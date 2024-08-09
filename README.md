@@ -3,15 +3,19 @@ PassHashGen is a program that generates passwords of the specified length, numbe
 
 ### Purpose
 This library is for research and practice purposes. It should be used with hashcat and johntheripper to generate a set number of passwords and hashes of a specific type to test the capabilities of your system without having to use real password dumps.
-As the functionalities of the library are expanded additional features like charset mask and dictionary building may be added.
+
 
 ### Current hashing capabilities: 
 md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, shake_256
 
-The goal is to get as close to 1-to-1 parity as possible with the hash types available in hashcat and johntheripper.
+### Potential Future Features
+1. 1-to-1 parity with the hash types available in hashcat and johntheripper (within reason). 
+2. More options to customize the passwords generated.
+3. Charset mask and dictionary/wordlist building based on password generation with randomization so it is still non-trivial to crack
 
 # Dislcaimer
-Please do not use this for production password hashing implementations. It has not been validated for that purpose. If you do choose to do so, I will not accept liabilty or responsibilty for the outcome.
+Please do not use this for production password hashing implementations. It has not been validated or designed for that use case. 
+If you do choose to do so, I will not accept liabilty or responsibilty for the outcome.
 
 ### Reporting Issues or Feature Requests
 If you have a request, find a bug, or would like to help with this endevor, submit an issue or pull request on https://github.com/Laminad/passhashgen
