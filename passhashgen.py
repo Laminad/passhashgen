@@ -32,7 +32,7 @@ def logging_factory() -> logging.Logger:
     return logger
 
 
-def logfile_generator(logger: logging.Logger) -> logging.Logger:
+def logfile_handler(logger: logging.Logger) -> logging.Logger:
     logfile = logging.FileHandler(".\\logs\\phg_log_{:%Y-%m-%d}.log".format(datetime.now()), 'a')
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', "%Y-%m-%d %H:%M:%S")
     logfile.setFormatter(formatter)
@@ -182,7 +182,7 @@ def main(args: argparse.Namespace):
     if pass_file == None and hash_file == None:
         logger.warning("Printing passwords and/or hashes to console because no output files were specified")
         console_printer(passwords, hashed_passwords, hash_algo)
-    logger.info(f"A total of {len(passwords)} password(s) and {len(hashed_passwords)} hash(es) were generated")
+    logger.info(f"A total of {len(passwords)} password(s) and {len(hashed_passwords)} {hash_algo} hash(es) were generated")
     
 
 def arguement_validator(args: argparse.Namespace):
@@ -214,9 +214,9 @@ if __name__ == "__main__":
         args = argument_handler()
         if args.quiet != 1:
             logger = console_streamer(logger)
-            logger = logfile_generator(logger)
+            logger = logfile_handler(logger)
         if args.quiet == 1:
-            logger = logfile_generator(logger)
+            logger = logfile_handler(logger)
         logger.info("Starting password generation and/or hashing process")
         arguement_validator(args)
         main(args)
