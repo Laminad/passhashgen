@@ -1,5 +1,5 @@
 # PassHashGen (PHG)
-PassHashGen is a program that generates passwords of the specified length, number, and strength[0-3] and provides the option to hash the generated password(s). After password generation and/or hashing is complete PHG will output the hash(es), password(s), or both to the specified text file(s) or console. PHG also has the ability to read a text file of password(s) and convert them to a hash of specified type.
+PassHashGen is a program that generates passwords of specified length, number, and strength[0-3] and provides the option to hash the generated password(s). After password generation and/or hashing is complete PHG will output the hash(es), password(s), or both to the specified text file(s) or console. PHG also has the ability to read a text file of password(s) and convert them to a hash of specified type.
 
 ### Purpose
 This library is for research and practice purposes. It should be used with hashcat and johntheripper to generate a set number of passwords and hashes of a specific type to test the capabilities of your system without having to use real password dumps.
