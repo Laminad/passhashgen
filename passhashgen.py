@@ -130,7 +130,7 @@ def output_file_writer(passwords: list, hashed_passwords: list, pass_file: str, 
 def hash_printer(hashed_passwords: list, hash_algo: str) -> bool:
     # Easiest way to make sure this function always prints to console if called is to leave output as print statements
     # That also ensures that passwords and hashes don't end up getting stored in the log files
-    print(f"Generated {hash_algo} Hash(es):")
+    logger.info(f"Generated {hash_algo} Hash(es):")
     for hash in hashed_passwords:
         print(hash)
     return True
@@ -139,7 +139,7 @@ def hash_printer(hashed_passwords: list, hash_algo: str) -> bool:
 def pass_printer(passwords: list) -> bool:
     # Easiest way to make sure this function always prints to console if called is to leave output as print statements
     # That also ensures that passwords and hashes don't end up getting stored in the log files
-    print("Generated Password(s):")
+    logger.info("Generated Password(s):")
     for password in passwords:
         print(password)
     return True
