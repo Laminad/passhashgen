@@ -14,15 +14,15 @@ md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_51
 5. Potentially convert to Cython or utilize Cuda/OpenCL for improved performance
 4. Add Multithreading (Waitng for GIL to be removed and stable in the official Python release)
 
-# Dislcaimer
-Please do not use this for production password hashing implementations. It has not been validated or designed for that use case. 
-If you do choose to do so, I will not accept liabilty or responsibilty for the outcome.
-
 ### Reporting Issues or Feature Requests
 If you have a request, find a bug, or would like to help with this endevor, submit an issue or pull request on https://github.com/Laminad/passhashgen
 
 ### Known Issues
 None currently
+
+# Dislcaimer
+Please do not use this for production password hashing implementations. It has not been validated or designed for that use case. 
+If you do choose to do so, I will not accept liabilty or responsibilty for the outcome.
 
 # Usage and Performance
 ```
