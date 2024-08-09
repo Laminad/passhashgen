@@ -81,7 +81,7 @@ Set-Alias -Name phg -Value "C:\filepath\to\passhashgen\dist\passhashgen.exe"
 .$profile
 ```
 
-### Testing the install and Alias:
+### Testing the Install and Alias:
 Linux without alias:
 ```
 ┌──(laminad㉿DESKTOP)-[~/.passhashgen/dist]
