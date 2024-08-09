@@ -130,7 +130,7 @@ def output_file_writer(passwords: list, hashed_passwords: list, pass_file: str, 
 def hash_printer(hashed_passwords: list, hash_algo: str) -> bool:
     # Easiest way to make sure this function always prints to console if called is to leave output as print statements
     # That also ensures that passwords and hashes don't end up getting stored in the log files
-    print(f"Generated {hash_algo} Hashes:")
+    print(f"Generated {hash_algo} Hash(es):")
     for hash in hashed_passwords:
         print(hash)
     return True
@@ -139,7 +139,7 @@ def hash_printer(hashed_passwords: list, hash_algo: str) -> bool:
 def pass_printer(passwords: list) -> bool:
     # Easiest way to make sure this function always prints to console if called is to leave output as print statements
     # That also ensures that passwords and hashes don't end up getting stored in the log files
-    print("Generated Passwords:")
+    print("Generated Password(s):")
     for password in passwords:
         print(password)
     return True
@@ -169,21 +169,23 @@ def main(args: argparse.Namespace) -> bool:
         logger.info(f"Generating {number} password(s) of length {length} and strength {strength}")
         passwords = password_generator(length, number, strength)
     if input_file != None:
-        logger.info(f"Reading the password input file to hash the values")
+        logger.info(f"Reading the password file {input_file} to hash the value(s)")
         passwords = input_file_reader(input_file)
     if hash_algo != None:
         logger.info(f"Generating {len(passwords)} password hash(es) using {hash_algo}")
         hashed_passwords = hash_generator(passwords, hash_algo)
     if pass_file != None or hash_file != None:
-        logger.info("Writing passwords and/or hashes to the output file")
+        logger.info(f"Writing password(s) and/or hash(es) to the output file(s) {hash_file} {pass_file}")
         output_file_writer(passwords, hashed_passwords, pass_file, hash_file)
+    if pass_file == None and hash_file == None:
+        logger.warning("Printing password(s) and/or hash(es) to console because no output files were specified")
+        console_printer(passwords, hashed_passwords, hash_algo)
     if print_pass == 1 and pass_file != None:
+        logger.info(f"Printing password(s) to console")
         pass_printer(passwords)
     if print_hash == 1 and hash_file != None:
+        logger.info(f"Printing hash(es) to console")
         hash_printer(hashed_passwords, hash_algo)
-    if pass_file == None and hash_file == None:
-        logger.warning("Printing passwords and/or hashes to console because no output files were specified")
-        console_printer(passwords, hashed_passwords, hash_algo)
     logger.info(f"A total of {len(passwords)} password(s) and {len(hashed_passwords)} {hash_algo} hash(es) were generated")
     return True
     
