@@ -1,5 +1,5 @@
 # PassHashGen (PHG)
-PassHashGen is a program that generates passwords of the specified length, number, and strength[0-3]. PHG also provides the option to hash the generated password(s) and output either the hash(es), password(s), or both to the specified text file(s) or console. PHG also has an option to read a text file of password(s) and convert them to a hash of specified type.
+PassHashGen is a program that generates passwords of the specified length, number, and strength[0-3] and provides the option to hash the generated password(s). After password generation and/or hashing is complete PHG will either output the hash(es), password(s), or both to the specified text file(s) or console. PHG also has the ability to read a text file of password(s) and convert them to a hash of specified type.
 
 ### Purpose
 This library is for research and practice purposes. It should be used with hashcat and johntheripper to generate a set number of passwords and hashes of a specific type to test the capabilities of your system without having to use real password dumps.
@@ -25,14 +25,13 @@ This script can be run standalone as long as the dependencies are installed. Pyi
 ### Dependencies
 Pyinstaller should validate the dependencies, but if you have issues these are the python libraries used. Most are builtin, so they will already be part of a typically python3 installation.
 ```
-os
 sys
 random
 hashlib
 logging
 argparse
-cryptography
-pip install argparse cryptography logging hashlib random os sys
+datetime
+pip install argparse logging hashlib random datetime sys
 ```
 
 ### PyInstaller Instructions:
@@ -48,11 +47,10 @@ I recommend setting up a shell alias to call the binary/executable after complet
 
 Linux bash/zsh:
 ```
-[vim|nvim|nano|code] ~/[.bashrc|.zshrc|.bash_aliases|.zsh_aliases]
-alias passhashgen="/path/to/passhashgen/dist/passhashgen.[bin|elf|exe]"
-alias phg="/path/to/passhashgen/dist/passhashgen.[bin|elf|exe]"
-source ~/.bash_aliases or ~/.zsh_aliases
-source ~/.bashrc or ~/.zshrc
+[vim|nvim|nano|code] ~/.[bashrc|zshrc|bash_aliases|zsh_aliases]
+alias passhashgen="/path/to/passhashgen/dist/passhashgen"
+alias phg="/path/to/passhashgen/dist/passhashgen"
+source ~/.[bashrc|zshrc|bash_aliases|zsh_aliases]
 ```
 
 Windows Powershell: 
