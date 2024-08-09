@@ -40,7 +40,7 @@ PS C:\tools\passhashgen> phg -l 25 -n 1000000 -s 3 -m sha3_512 -op pass_perf_tes
 ```
 
 # Installation
-This script can be run standalone as long as the dependencies are installed. Pyinstaller can also be used to create binary/executable file to run. I recommend using pyinstaller as it is easier to use in aliases, it will validate dependencies, and the executable/binary will be more performant.
+This script can be run standalone as long as the dependencies are installed. Pyinstaller can also be used to create binary/executable file to run. I recommend using pyinstaller as it is easier to use binaries/executables in aliases, pyinstaller will validate dependencies, and the resulting executable/binary will be more performant than the .py file.
 
 ### Dependencies
 Pyinstaller should validate the dependencies, but if you have issues these are the python libraries used. Most are builtin, so they will already be part of a typically python3 installation.
