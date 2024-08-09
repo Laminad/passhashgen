@@ -28,13 +28,13 @@ def password_generator(length: int, number: int, strength: int) -> list:
     numbers = "1234567890"
     symbols = "!@#$%^&*()"
     if strength == 0:
-        pword_string = lower_case
+        pword_string = numbers
     elif strength == 1:
-        pword_string = lower_case + upper_case
+        pword_string = numbers + lower_case
     elif strength == 2:
-        pword_string = lower_case + upper_case + numbers
+        pword_string = numbers + lower_case + upper_case
     elif strength == 3:
-        pword_string = lower_case + upper_case + numbers + symbols
+        pword_string = numbers + lower_case + upper_case + symbols
     for _ in range(number):
         password = ""
         for _ in range(length):
@@ -183,8 +183,8 @@ if __name__ == "__main__":
     logger.setLevel(10) # Debug
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', "%Y-%m-%d %H:%M:%S")
     parser = argparse.ArgumentParser(
-    prog="\n\nPASSHASHGEN\n\n",
-    description="A program that generates passwords of the specified length, number, and strength. The option to hash the password(s) and output either the hash/passwords/both to the specified text file(s) is available. It is also possible to read a text file of password(s) and convert them to a hash of specified type.",
+    prog="\n\nPassHashGen\n\n",
+    description="A program that generates passwords of the specified length, number, and strength with the ability to hash the password(s) after generating. If an output file(s) is/are provided the hash/passwords/both can be written to the file. If an input file of password(s) is provided it will convert them to a hash of specified type.",
     epilog="Look you want something from me and I want something from you. DOD Base 128 Bit Encryption. What do you think?"
     )
     parser.add_argument("-l", dest='length', type=int, action="store", default=8, help="Flag to set the length of password(s) to randomly generate. If not set default length of 8 will be used")
