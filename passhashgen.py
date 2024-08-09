@@ -13,15 +13,15 @@ def argument_handler() -> argparse.Namespace:
     epilog="Look you want something from me and I want something from you. DOD Base 128 Bit Encryption. What do you think?"
     )
     parser.add_argument("-l", dest='length', type=int, action="store", default=8, help="Flag to set the length of password(s) to randomly generate. If not set default length of 8 will be used")
-    parser.add_argument("-n", dest='number', type=int, action="store", default=1, help="Flag to set the number of password(s) to be generated. The default is 1 unless set")
+    parser.add_argument("-n", dest='number', type=int, action="store", default=1, help="Flag to set the number of password(s) to be generated. If not set default of 1 will be used")
     parser.add_argument("-s", dest='strength', type=int, action="store", default=3, help="Flag to set the strength of password generated. Set to strong(3) by default [0-3]")
-    parser.add_argument("-m", dest='hash_algo', type=str, action="store", default=None, help="Flag to set the hashing method to complete on password(s). Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256. If not set no hashing will occur")
+    parser.add_argument("-m", dest='hash_algo', type=str, action="store", default=None, help="Flag to set the hashing method to complete on password(s). If not set no hashing will occur. Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256.")
     parser.add_argument("-i", dest='input_file', type=str, default=None, help="Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set")
     parser.add_argument("-op", dest='pass_file', type=str, default=None, help="Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console")
     parser.add_argument("-oh", dest='hash_file', type=str, default=None, help="Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console")
-    parser.add_argument("-pp", dest='print_pass', type=int, action="store", default=1, help="Flag to enable or disable whether the password(s) print to console. The default is to print the password(s) to console. Not possible to disable if no output file is provided. 1:Enabled 0:Disabled")
-    parser.add_argument("-ph", dest='print_hash', type=int, action="store", default=1, help="Flag to enable or disable whether the hash(es) to console. Not possible to disable if no output files are provided. The default is to print the hashes to console 1:Enabled 0:Disabled")
-    parser.add_argument("-q", dest='quiet', type=int, action="store", default=0, help="Flag to enable or disable whether the status messages print to console other than hash or passwords. The default is to print status to console 1:Enabled 0:Disabled")
+    parser.add_argument("-pp", dest='print_pass', type=int, action="store", default=1, help="Flag to enable or disable whether the password(s) print to console. Not possible to disable if no output file is provided. The default is to print the password(s) to console. 1:Enabled 0:Disabled")
+    parser.add_argument("-ph", dest='print_hash', type=int, action="store", default=1, help="Flag to enable or disable whether the hash(es) print to console. Not possible to disable if no output file is provided. The default is to print the hash(es) to console 1:Enabled 0:Disabled")
+    parser.add_argument("-q", dest='quiet', type=int, action="store", default=0, help="Flag to enable or disable whether the status messages print to console other than hash(es) or password(s). The default is to print status to console 1:Enabled 0:Disabled")
     args = parser.parse_args()
     return args
 
