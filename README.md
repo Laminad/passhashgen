@@ -113,7 +113,7 @@ Look you want something from me and I want something from you. DOD Base 128 Bit 
 
 Linux/Unix with alias:
 ```
-┌──(laminad㉿DESKTOP)-[~/.passhashgen/dist]
+┌──(laminad㉿DESKTOP-JUJ33CH)-[/]
 └─$ phg -h
 usage:
 
