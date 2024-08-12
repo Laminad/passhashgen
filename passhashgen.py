@@ -1,9 +1,12 @@
 from datetime import datetime
 from random import randint
+import platform
 import argparse
 import logging
 import hashlib
 import sys
+import os
+
 
 
 def argument_handler() -> argparse.Namespace:
@@ -26,6 +29,22 @@ def argument_handler() -> argparse.Namespace:
     return args
 
 
+def log_directory_validator():
+    if "Windows" in platform.platform():
+        if not os.path.exists("C:\\ProgramData\\passhashgen"):
+            os.makedirs("C:\\ProgramData\\passhashgen")
+        file_path = os.path.join("passhashgen","phg_log_{:%Y-%m-%d}.log".format(datetime.now()))
+    if "Linux" in platform.platform():
+        if not os.path.exists("/var/log/passhashgen"):
+            os.makedirs("/var/log/passhashgen")
+        file_path = os.path.join("passhashgen","phg_log_{:%Y-%m-%d}.log".format(datetime.now()))
+    if "macOS" in platform.platform():
+        if not os.path.exists("/var/log/passhashgen"):
+            os.makedirs("/var/log/passhashgen")
+        file_path = os.path.join("passhashgen","phg_log_{:%Y-%m-%d}.log".format(datetime.now()))
+    return file_path
+
+
 def logging_factory() -> logging.Logger:
     logger = logging.getLogger(__name__)
     logger.setLevel(10) # Debug
@@ -33,7 +52,8 @@ def logging_factory() -> logging.Logger:
 
 
 def logfile_handler(logger: logging.Logger) -> logging.Logger:
-    logfile = logging.FileHandler(".\\logs\\phg_log_{:%Y-%m-%d}.log".format(datetime.now()), 'a')
+    file_path = log_directory_validator()
+    logfile = logging.FileHandler(file_path, 'a')
     formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s', "%Y-%m-%d %H:%M:%S")
     logfile.setFormatter(formatter)
     logger.addHandler(logfile)

@@ -19,7 +19,7 @@ This library is for research and practice purposes. It should be used with hashc
 If you have a request, find a bug, or would like to help with this endevor, submit an issue or pull request on https://github.com/Laminad/passhashgen
 
 ### Known Issues
-Fix log file pathing so that logs can write outside of install directory
+Fix log file pathing so that logs can write outside of install directory (I believe this is fixed. Validated on Windows)
 
 # Dislcaimer
 Please do not use this for production password hashing implementations. It has not been validated or designed for that use case. 
@@ -46,13 +46,15 @@ This script can be run standalone as long as the dependencies are installed. Pyi
 ### Dependencies
 Pyinstaller should validate the dependencies, but if you have issues these are the python libraries used. Most are builtin, so they will already be part of a typically python3 installation.
 ```
+os
 sys
 random
 hashlib
 logging
 argparse
+platform
 datetime
-pip install argparse logging hashlib random datetime sys
+pip install argparse logging hashlib random datetime sys os platform
 ```
 
 ### PyInstaller Instructions:
