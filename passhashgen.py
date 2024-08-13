@@ -19,9 +19,9 @@ def argument_handler() -> argparse.Namespace:
     parser.add_argument("-n", dest='number', type=int, action="store", default=1, help="Flag to set the number of passwords to be generated. If not set default of 1 will be used")
     parser.add_argument("-s", dest='strength', type=int, action="store", default=3, help="Flag to set the strength of passwords generated. Set to strong(3) by default [0-3]")
     parser.add_argument("-m", dest='hash_algo', type=str, action="store", default=None, help="Flag to set the hashing method to complete on password(s). If not set no hashing will occur. Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256.")
-    parser.add_argument("-i", dest='input_file', type=str, default=None, help="Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set")
-    parser.add_argument("-op", dest='pass_file', type=str, default=None, help="Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console")
-    parser.add_argument("-oh", dest='hash_file', type=str, default=None, help="Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console")
+    parser.add_argument("-i", dest='input_file', type=str, action="store", default=None, help="Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set")
+    parser.add_argument("-op", dest='pass_file', type=str, action="store", default=None, help="Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console")
+    parser.add_argument("-oh", dest='hash_file', type=str, action="store", default=None, help="Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console")
     parser.add_argument("-np", dest='print_pass', action="store_false", default=True, help="Flag to enable whether the password(s) print to console. The default is to print the password(s) to console unless textfile provided.")
     parser.add_argument("-nh", dest='print_hash', action="store_false", default=True, help="Flag to enable whether the hash(es) print to console. The default is to print the hash(es) to console unless textfile provided.")
     parser.add_argument("-v", dest='verbose', action="store_true", default=False, help="Flag to enable verbose status messages to console other than hash(es) or password(s). The default is not to print status to console.")
@@ -127,14 +127,6 @@ def password_generator(length: int, number: int, pword_string: str) -> list:
     return passwords
 
 
-def hash_generator(passwords: list, hash_algo: str) -> list:
-    hashed_passwords = []
-    for password in passwords:
-        hash = hashlib.new(hash_algo, password.encode('utf-8')).hexdigest()
-        hashed_passwords.append(hash)
-    return hashed_passwords
-
-
 def input_file_reader(input_file: str, passwords: list) -> list:
     try:
         with open(input_file, "r") as ifile:
@@ -144,6 +136,14 @@ def input_file_reader(input_file: str, passwords: list) -> list:
     except FileNotFoundError:
         logger.error(f"Invalid file path provided for input file {input_file}")
         sys.exit()
+
+
+def hash_generator(passwords: list, hash_algo: str) -> list:
+    hashed_passwords = []
+    for password in passwords:
+        hash = hashlib.new(hash_algo, password.encode('utf-8')).hexdigest()
+        hashed_passwords.append(hash)
+    return hashed_passwords
 
 
 def pass_file_writer(passwords: list, pass_file: str) -> bool:
