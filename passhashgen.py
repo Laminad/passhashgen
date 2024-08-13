@@ -210,7 +210,7 @@ def main(args: argparse.Namespace) -> bool:
     return True
     
 
-def arguement_validator(args: argparse.Namespace) -> bool:
+def argument_validator(args: argparse.Namespace) -> bool:
     hashtypes = ["md5", "sha1", "sha224", "sha256", "sha384", "sha512", "sha3_224", "sha3_256", "sha3_384", "sha3_512", "shake_128", "shake_256"]
     if args.length <= 0:
         logger.error(f"Invalid integer provided for length of password unable to generate password(s) of length {args.length}")
@@ -244,7 +244,7 @@ if __name__ == "__main__":
         if args.verbose == 0:
             logger = logfile_handler(logger)
         logger.info("Starting password generation and/or hashing process")
-        arguement_validator(args)
+        argument_validator(args)
         main(args)
         logger.info(f"Password and/or hash generation process completed in {datetime.now() - start_time} seconds")
     except KeyboardInterrupt:
