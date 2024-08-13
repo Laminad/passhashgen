@@ -234,7 +234,6 @@ def argument_validator(args: argparse.Namespace) -> bool:
 
 if __name__ == "__main__":
     try:
-        start_time = datetime.now()
         logger = logging_factory()
         args = argument_handler()
         argument_validator(args)
@@ -243,6 +242,7 @@ if __name__ == "__main__":
             logger = logfile_handler(logger)
         if args.verbose == 0:
             logger = logfile_handler(logger)
+        start_time = datetime.now()
         logger.info("Starting password generation and/or hashing process")
         main(args)
         logger.info(f"Password and/or hash generation process completed in {datetime.now() - start_time} seconds")
