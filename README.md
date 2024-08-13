@@ -8,7 +8,7 @@ This library is for research and practice purposes. It should be used with hashc
 ```md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, shake_256```
 
 ### Future Goals
-1. 1-to-1 parity with the hash types available in hashcat and johntheripper including nested hashing (within reason).
+1. 1-to-1 parity with the hash types available in hashcat and johntheripper including nested and salted hashing (within reason).
 2. More options to customize the passwords generated.
 3. Charset mask and dictionary/wordlist building based on password generation with randomization so it is still non-trivial to crack
 4. Potentially convert to Cython or utilize Cuda/OpenCL for improved performance
