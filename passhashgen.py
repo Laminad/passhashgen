@@ -24,7 +24,7 @@ def argument_handler() -> argparse.Namespace:
     parser.add_argument("-oh", dest='hash_file', type=str, default=None, help="Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console")
     parser.add_argument("-pp", dest='print_pass', type=int, action="store", default=1, help="Flag to enable or disable whether the password(s) print to console. Not possible to disable if no output file is provided. The default is to print the password(s) to console. 1:Enabled 0:Disabled")
     parser.add_argument("-ph", dest='print_hash', type=int, action="store", default=1, help="Flag to enable or disable whether the hash(es) print to console. Not possible to disable if no output file is provided. The default is to print the hash(es) to console 1:Enabled 0:Disabled")
-    parser.add_argument("-q", dest='quiet', type=int, action="store", default=1, help="Flag to enable or disable whether the status messages print to console other than hash(es) or password(s). The default is not to print status to console 1:Enabled 0:Disabled")
+    parser.add_argument("-v", dest='verbose', type=int, action="store", default=1, help="Flag to enable or disable whether the status messages print to console other than hash(es) or password(s). The default is not to print status to console 1:Enabled 0:Disabled")
     args = parser.parse_args()
     return args
 
@@ -238,10 +238,10 @@ if __name__ == "__main__":
         start_time = datetime.now()
         logger = logging_factory()
         args = argument_handler()
-        if args.quiet != 1:
+        if args.verbose != 1:
             logger = console_streamer(logger)
             logger = logfile_handler(logger)
-        if args.quiet == 1:
+        if args.verbose == 1:
             logger = logfile_handler(logger)
         logger.info("Starting password generation and/or hashing process")
         arguement_validator(args)
