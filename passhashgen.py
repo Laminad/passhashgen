@@ -116,9 +116,9 @@ def input_file_reader(input_file: str, passwords: list) -> list:
 def pass_file_writer(passwords: list, pass_file: str) -> bool:
     try:
         with open(pass_file, "a") as pfile:
-                for password in passwords:
-                    pfile.write(f"{password}\n")
-                pfile.close()
+            for password in passwords:
+                pfile.write(f"{password}\n")
+            pfile.close()
         logger.info(f"{len(passwords)} password(s) written to output file {pass_file}")
         return True
     except FileNotFoundError:
@@ -129,9 +129,9 @@ def pass_file_writer(passwords: list, pass_file: str) -> bool:
 def hash_file_writer(hashed_passwords: list, hash_file: str) -> bool:
     try:
         with open(hash_file, "a") as hfile:
-                for hash in hashed_passwords:
-                    hfile.write(f"{hash}\n")
-                hfile.close()
+            for hash in hashed_passwords:
+                hfile.write(f"{hash}\n")
+            hfile.close()
         logger.info(f"{len(hashed_passwords)} hashed password(s) written to output file {hash_file}")
         return True
     except FileNotFoundError:
