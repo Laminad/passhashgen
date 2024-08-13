@@ -47,6 +47,7 @@ This script can be run standalone as long as the dependencies are installed. Pyi
 ### Dependencies
 Pyinstaller should validate the dependencies, but if you have issues these are the python libraries used. Most are builtin, so they will already be part of a typically python3 installation.
 ```
+python3.5 or newer (python3.12 recommended)
 os
 sys
 random
