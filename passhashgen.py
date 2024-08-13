@@ -170,7 +170,7 @@ def hash_file_writer(hashed_passwords: list, hash_file: str) -> bool:
         sys.exit()  
 
 
-def hash_printer(hashed_passwords: list, hash_algo: str) -> bool:
+def hash_printer(hashed_passwords: list) -> bool:
     # Easiest way to make sure this function always prints to console if called is to leave output as print statements
     # That also ensures that passwords and hashes don't end up getting stored in the log files
     for hash in hashed_passwords:
@@ -236,7 +236,7 @@ def main(args: argparse.Namespace) -> bool:
         pass_printer(passwords)
     if hash_algo != None and (print_hash == True or hash_file == None):
         logger.info(f"Printing {len(hashed_passwords)} hash(es) to console")
-        hash_printer(hashed_passwords, hash_algo)
+        hash_printer(hashed_passwords)
     return True
 
 
