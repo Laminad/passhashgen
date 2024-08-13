@@ -27,17 +27,18 @@ If you do choose to do so, I will not accept liabilty or responsibilty for the o
 
 # Usage and Performance
 ```
-PS C:\tools\passhashgen> phg -l 25 -n 1000000 -s 3 -m sha3_512 -op pass_perf_test.txt -oh hash_perf_test.txt -pp 0 -ph 0
-2024-08-09 01:47:38 - INFO - Starting password generation and/or hashing process
-2024-08-09 01:47:38 - INFO - Generating 1000000 password(s) of length 25 and strength 3
-2024-08-09 01:47:46 - INFO - 1000000 passwords generated of strength 3 using the characters: 1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()
-2024-08-09 01:47:46 - INFO - Generating 1000000 password hash(es) using sha3_512
-2024-08-09 01:47:47 - INFO - 1000000 hash(es) generated
-2024-08-09 01:47:47 - INFO - Writing passwords and/or hashes to the output file
-2024-08-09 01:47:48 - INFO - 1000000 password(s) written to output file pass_perf_test.txt
-2024-08-09 01:47:49 - INFO - 1000000 hashed password(s) written to output file hash_perf_test.txt
-2024-08-09 01:47:49 - INFO - A total of 1000000 password(s) and 1000000 hash(es) were generated
-2024-08-09 01:47:49 - INFO - Password and/or hash generation process completed in 0:00:10.834978 seconds
+PS C:\Users\lamin> phg -l 25 -s 3 -n 1000000 -m sha3_512 -oh perf_test_hash.txt -op perf_test_pass.txt -v -np -nh
+2024-08-13 04:09:37 - INFO - Starting password generation process
+2024-08-13 04:09:37 - INFO - Generating 1000000 password(s) of length 25 and strength 3
+2024-08-13 04:09:44 - INFO - 1000000 passwords generated of strength 3 using the characters: 1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()
+2024-08-13 04:09:44 - INFO - Starting password hashing process
+2024-08-13 04:09:44 - INFO - Generating 1000000 password hash(es) using sha3_512
+2024-08-13 04:09:45 - INFO - A total of 1000000 sha3_512 hash(es) were generated
+2024-08-13 04:09:45 - INFO - Writing 1000000 password(s) to file perf_test_pass.txt
+2024-08-13 04:09:46 - INFO - 1000000 password(s) written to file perf_test_pass.txt
+2024-08-13 04:09:46 - INFO - Writing 1000000 sha3_512 hash(es) to file perf_test_hash.txt
+2024-08-13 04:09:47 - INFO - 1000000 sha3_512 hash(es) written to file perf_test_hash.txt
+2024-08-13 04:09:47 - INFO - Password and/or hash generation process completed in 0:00:10.454895 seconds
 ```
 
 # Installation
@@ -54,7 +55,7 @@ logging
 argparse
 platform
 datetime
-pip install argparse logging hashlib random datetime sys os platform
+pip install os sys random hashlib logging argparse platform datetime
 ```
 
 ### PyInstaller Instructions:
@@ -79,8 +80,8 @@ source ~/.[bashrc|zshrc|bash_aliases|zsh_aliases]
 Windows Powershell: 
 ```
 code $profile
-Set-Alias -Name passhashgen -Value "C:\filepath\to\passhashgen\dist\passhashgen.exe"
-Set-Alias -Name phg -Value "C:\filepath\to\passhashgen\dist\passhashgen.exe"
+Set-Alias -Name passhashgen -Value "C:\path\to\passhashgen\dist\passhashgen.exe"
+Set-Alias -Name phg -Value "C:\path\to\passhashgen\dist\passhashgen.exe"
 .$profile
 ```
 
@@ -93,23 +94,23 @@ usage:
 
 PassHashGen
 
- [-h] [-l LENGTH] [-n NUMBER] [-s STRENGTH] [-m HASH_ALGO] [-i INPUT_FILE] [-op PASS_FILE] [-oh HASH_FILE] [-pp PRINT_PASS] [-ph PRINT_HASH] [-q QUIET]
+ [-h] [-l int] [-n int] [-s int] [-m str] [-i str] [-op str] [-oh str] [-np] [-nh] [-v]
 
 A program that generates passwords of the specified length, number, and strength with the ability to hash the password(s) after generating. If an output file(s) is/are provided the hash/passwords/both can be written to the file. If an input file of password(s) is provided it
 will convert them to a hash of specified type.
 
 options:
-  -h, --help      show this help message and exit
-  -l LENGTH       Flag to set the length of password(s) to randomly generate. If not set default length of 8 will be used
-  -n NUMBER       Flag to set the number of password(s) to be generated. If not set default of 1 will be used
-  -s STRENGTH     Flag to set the strength of password generated. Set to strong(3) by default [0-3]
-  -m HASH_ALGO    Flag to set the hashing method to complete on password(s). If not set no hashing will occur. Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256.
-  -i INPUT_FILE   Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set
-  -op PASS_FILE   Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console
-  -oh HASH_FILE   Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console
-  -pp PRINT_PASS  Flag to enable or disable whether the password(s) print to console. Not possible to disable if no output file is provided. The default is to print the password(s) to console. 1:Enabled 0:Disabled
-  -ph PRINT_HASH  Flag to enable or disable whether the hash(es) print to console. Not possible to disable if no output file is provided. The default is to print the hash(es) to console 1:Enabled 0:Disabled
-  -q QUIET        Flag to enable or disable whether the status messages print to console other than hash(es) or password(s). The default is to print status to console 1:Enabled 0:Disabled
+  -h, --help  show this help message and exit
+  -l int      Flag to set the length of password(s) to randomly generate. If not set default length of 8 will be used
+  -n int      Flag to set the number of passwords to be generated. If not set default of 1 will be used
+  -s int      Flag to set the strength of passwords generated. Set to strong(3) by default [0-3]
+  -m str      Flag to set the hashing method to complete on password(s). If not set no hashing will occur. Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256.
+  -i str      Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set
+  -op str     Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console
+  -oh str     Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console
+  -np         Flag to enable whether the password(s) print to console. The default is to print the password(s) to console unless textfile provided.
+  -nh         Flag to enable whether the hash(es) print to console. The default is to print the hash(es) to console unless textfile provided.
+  -v          Flag to enable verbose status messages to console other than hash(es) or password(s). The default is not to print status to console.
 
 Look you want something from me and I want something from you. DOD Base 128 Bit Encryption. What do you think?
 ```
@@ -122,23 +123,23 @@ usage:
 
 PassHashGen
 
- [-h] [-l LENGTH] [-n NUMBER] [-s STRENGTH] [-m HASH_ALGO] [-i INPUT_FILE] [-op PASS_FILE] [-oh HASH_FILE] [-pp PRINT_PASS] [-ph PRINT_HASH] [-q QUIET]
+ [-h] [-l int] [-n int] [-s int] [-m str] [-i str] [-op str] [-oh str] [-np] [-nh] [-v]
 
 A program that generates passwords of the specified length, number, and strength with the ability to hash the password(s) after generating. If an output file(s) is/are provided the hash/passwords/both can be written to the file. If an input file of password(s) is provided it
 will convert them to a hash of specified type.
 
 options:
-  -h, --help      show this help message and exit
-  -l LENGTH       Flag to set the length of password(s) to randomly generate. If not set default length of 8 will be used
-  -n NUMBER       Flag to set the number of password(s) to be generated. If not set default of 1 will be used
-  -s STRENGTH     Flag to set the strength of password generated. Set to strong(3) by default [0-3]
-  -m HASH_ALGO    Flag to set the hashing method to complete on password(s). If not set no hashing will occur. Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256.
-  -i INPUT_FILE   Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set
-  -op PASS_FILE   Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console
-  -oh HASH_FILE   Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console
-  -pp PRINT_PASS  Flag to enable or disable whether the password(s) print to console. Not possible to disable if no output file is provided. The default is to print the password(s) to console. 1:Enabled 0:Disabled
-  -ph PRINT_HASH  Flag to enable or disable whether the hash(es) print to console. Not possible to disable if no output file is provided. The default is to print the hash(es) to console 1:Enabled 0:Disabled
-  -q QUIET        Flag to enable or disable whether the status messages print to console other than hash(es) or password(s). The default is to print status to console 1:Enabled 0:Disabled
+  -h, --help  show this help message and exit
+  -l int      Flag to set the length of password(s) to randomly generate. If not set default length of 8 will be used
+  -n int      Flag to set the number of passwords to be generated. If not set default of 1 will be used
+  -s int      Flag to set the strength of passwords generated. Set to strong(3) by default [0-3]
+  -m str      Flag to set the hashing method to complete on password(s). If not set no hashing will occur. Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256.
+  -i str      Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set
+  -op str     Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console
+  -oh str     Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console
+  -np         Flag to enable whether the password(s) print to console. The default is to print the password(s) to console unless textfile provided.
+  -nh         Flag to enable whether the hash(es) print to console. The default is to print the hash(es) to console unless textfile provided.
+  -v          Flag to enable verbose status messages to console other than hash(es) or password(s). The default is not to print status to console.
 
 Look you want something from me and I want something from you. DOD Base 128 Bit Encryption. What do you think?
 ```
@@ -151,23 +152,23 @@ usage:
 
 PassHashGen
 
- [-h] [-l LENGTH] [-n NUMBER] [-s STRENGTH] [-m HASH_ALGO] [-i INPUT_FILE] [-op PASS_FILE] [-oh HASH_FILE] [-pp PRINT_PASS] [-ph PRINT_HASH] [-q QUIET]
+ [-h] [-l int] [-n int] [-s int] [-m str] [-i str] [-op str] [-oh str] [-np] [-nh] [-v]
 
 A program that generates passwords of the specified length, number, and strength with the ability to hash the password(s) after generating. If an output file(s) is/are provided the hash/passwords/both can be written to the file. If an input file of password(s) is provided it
 will convert them to a hash of specified type.
 
 options:
-  -h, --help      show this help message and exit
-  -l LENGTH       Flag to set the length of password(s) to randomly generate. If not set default length of 8 will be used
-  -n NUMBER       Flag to set the number of password(s) to be generated. If not set default of 1 will be used
-  -s STRENGTH     Flag to set the strength of password generated. Set to strong(3) by default [0-3]
-  -m HASH_ALGO    Flag to set the hashing method to complete on password(s). If not set no hashing will occur. Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256.
-  -i INPUT_FILE   Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set
-  -op PASS_FILE   Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console
-  -oh HASH_FILE   Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console
-  -pp PRINT_PASS  Flag to enable or disable whether the password(s) print to console. Not possible to disable if no output file is provided. The default is to print the password(s) to console. 1:Enabled 0:Disabled
-  -ph PRINT_HASH  Flag to enable or disable whether the hash(es) print to console. Not possible to disable if no output file is provided. The default is to print the hash(es) to console 1:Enabled 0:Disabled
-  -q QUIET        Flag to enable or disable whether the status messages print to console other than hash(es) or password(s). The default is to print status to console 1:Enabled 0:Disabled
+  -h, --help  show this help message and exit
+  -l int      Flag to set the length of password(s) to randomly generate. If not set default length of 8 will be used
+  -n int      Flag to set the number of passwords to be generated. If not set default of 1 will be used
+  -s int      Flag to set the strength of passwords generated. Set to strong(3) by default [0-3]
+  -m str      Flag to set the hashing method to complete on password(s). If not set no hashing will occur. Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256.
+  -i str      Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set
+  -op str     Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console
+  -oh str     Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console
+  -np         Flag to enable whether the password(s) print to console. The default is to print the password(s) to console unless textfile provided.
+  -nh         Flag to enable whether the hash(es) print to console. The default is to print the hash(es) to console unless textfile provided.
+  -v          Flag to enable verbose status messages to console other than hash(es) or password(s). The default is not to print status to console.
 
 Look you want something from me and I want something from you. DOD Base 128 Bit Encryption. What do you think?
 ```
@@ -175,28 +176,28 @@ Look you want something from me and I want something from you. DOD Base 128 Bit 
 
 Windows with alias:
 ```
-PS C:\> phg -h
+PS C:\Users\lamin> phg -h
 usage:
 
 PassHashGen
 
- [-h] [-l LENGTH] [-n NUMBER] [-s STRENGTH] [-m HASH_ALGO] [-i INPUT_FILE] [-op PASS_FILE] [-oh HASH_FILE] [-pp PRINT_PASS] [-ph PRINT_HASH] [-q QUIET]
+ [-h] [-l int] [-n int] [-s int] [-m str] [-i str] [-op str] [-oh str] [-np] [-nh] [-v]
 
 A program that generates passwords of the specified length, number, and strength with the ability to hash the password(s) after generating. If an output file(s) is/are provided the hash/passwords/both can be written to the file. If an input file of password(s) is provided it
 will convert them to a hash of specified type.
 
 options:
-  -h, --help      show this help message and exit
-  -l LENGTH       Flag to set the length of password(s) to randomly generate. If not set default length of 8 will be used
-  -n NUMBER       Flag to set the number of password(s) to be generated. If not set default of 1 will be used
-  -s STRENGTH     Flag to set the strength of password generated. Set to strong(3) by default [0-3]
-  -m HASH_ALGO    Flag to set the hashing method to complete on password(s). If not set no hashing will occur. Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256.
-  -i INPUT_FILE   Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set
-  -op PASS_FILE   Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console
-  -oh HASH_FILE   Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console
-  -pp PRINT_PASS  Flag to enable or disable whether the password(s) print to console. Not possible to disable if no output file is provided. The default is to print the password(s) to console. 1:Enabled 0:Disabled
-  -ph PRINT_HASH  Flag to enable or disable whether the hash(es) print to console. Not possible to disable if no output file is provided. The default is to print the hash(es) to console 1:Enabled 0:Disabled
-  -q QUIET        Flag to enable or disable whether the status messages print to console other than hash(es) or password(s). The default is to print status to console 1:Enabled 0:Disabled
+  -h, --help  show this help message and exit
+  -l int      Flag to set the length of password(s) to randomly generate. If not set default length of 8 will be used
+  -n int      Flag to set the number of passwords to be generated. If not set default of 1 will be used
+  -s int      Flag to set the strength of passwords generated. Set to strong(3) by default [0-3]
+  -m str      Flag to set the hashing method to complete on password(s). If not set no hashing will occur. Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256.
+  -i str      Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set
+  -op str     Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console
+  -oh str     Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console
+  -np         Flag to enable whether the password(s) print to console. The default is to print the password(s) to console unless textfile provided.
+  -nh         Flag to enable whether the hash(es) print to console. The default is to print the hash(es) to console unless textfile provided.
+  -v          Flag to enable verbose status messages to console other than hash(es) or password(s). The default is not to print status to console.
 
 Look you want something from me and I want something from you. DOD Base 128 Bit Encryption. What do you think?
 ```
