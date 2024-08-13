@@ -186,14 +186,6 @@ def pass_printer(passwords: list) -> bool:
     return True
 
 
-def console_printer(passwords: list, hashed_passwords: list, hash_algo: str) -> bool:
-    if passwords:
-        pass_printer(passwords)
-    if hashed_passwords:
-        hash_printer(hashed_passwords, hash_algo)
-    return True
-
-
 def main(args: argparse.Namespace) -> bool:
     passwords = []
     hashed_passwords = []
