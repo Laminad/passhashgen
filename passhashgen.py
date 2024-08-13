@@ -19,6 +19,7 @@ def argument_handler() -> argparse.Namespace:
     parser.add_argument("-n", dest='number', type=int, action="store", default=1, help="Flag to set the number of passwords to be generated. If not set default of 1 will be used")
     parser.add_argument("-s", dest='strength', type=int, action="store", default=3, help="Flag to set the strength of passwords generated. Set to strong(3) by default [0-3]")
     parser.add_argument("-m", dest='hash_algo', type=str, action="store", default=None, help="Flag to set the hashing method to complete on password(s). If not set no hashing will occur. Available methods: md5, sha1, sha224, sha256, sha384, sha512, sha3_224, sha3_256, sha3_384, sha3_512, shake_128, and shake_256.")
+    parser.add_argument("--salt", dest='salt', action="store_true", default=False, help="Flag to set whether a salt is used in the hashing process. Default is to hash without a salt unless set.")
     parser.add_argument("-i", dest='input_file', type=str, action="store", default=None, help="Flag to set the input file of password(s) to read and convert to hash. Default is not to read a file unless set")
     parser.add_argument("-op", dest='pass_file', type=str, action="store", default=None, help="Flag to set the output textfile to write the password(s) when complete. If not selected they will be output to console")
     parser.add_argument("-oh", dest='hash_file', type=str, action="store", default=None, help="Flag to set the output textfile to write the hash(es) when complete. If not selected they will be output to console")
@@ -142,6 +143,15 @@ def hash_generator(passwords: list, hash_algo: str) -> list:
     hashed_passwords = []
     for password in passwords:
         hash = hashlib.new(hash_algo, password.encode('utf-8')).hexdigest()
+        hashed_passwords.append(hash)
+    return hashed_passwords
+
+
+def salted_hash_generator(passwords: list, hash_algo: str) -> list:
+    hashed_passwords = []
+    for password in passwords:
+        salt = os.urandom(16)
+        hash = hashlib.pbkdf2_hmac(hash_algo, password, salt).hex()
         hashed_passwords.append(hash)
     return hashed_passwords
 
