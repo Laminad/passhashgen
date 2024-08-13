@@ -8,7 +8,6 @@ import sys
 import os
 
 
-
 def argument_handler() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
     prog="\n\nPassHashGen\n\n",
@@ -238,13 +237,13 @@ if __name__ == "__main__":
         start_time = datetime.now()
         logger = logging_factory()
         args = argument_handler()
+        argument_validator(args)
         if args.verbose == 1:
             logger = console_streamer(logger)
             logger = logfile_handler(logger)
         if args.verbose == 0:
             logger = logfile_handler(logger)
         logger.info("Starting password generation and/or hashing process")
-        argument_validator(args)
         main(args)
         logger.info(f"Password and/or hash generation process completed in {datetime.now() - start_time} seconds")
     except KeyboardInterrupt:
