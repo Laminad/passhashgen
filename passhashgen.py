@@ -151,7 +151,7 @@ def salted_hash_generator(passwords: list, hash_algo: str) -> list:
     hashed_passwords = []
     for password in passwords:
         salt = os.urandom(16)
-        hash = hashlib.pbkdf2_hmac(hash_algo, password.encode("utf-8"), salt).hex()
+        hash = hashlib.pbkdf2_hmac(hash_algo, password.encode("utf-8"), salt, 1).hex()
         hashed_passwords.append(hash)
     return hashed_passwords
 
