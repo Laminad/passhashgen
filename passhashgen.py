@@ -12,7 +12,7 @@ def argument_handler() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         prog="\n\nPassHashGen\n\n",
         formatter_class = argparse.MetavarTypeHelpFormatter,
-        description="A program that generates passwords of the specified length, number, and strength with the ability to hash the password(s) after generating. If an output file(s) is/are provided the hash/passwords/both can be written to the file. If an input file of password(s) is provided it will convert them to a hash of specified type.",
+        description="A program that generates passwords of the specified length, number, and strength with the ability to hash the password(s) after generating. If output file(s) is/are provided the hash/passwords/both will be written to the file. If an input file of password(s) is provided it will convert them to a hash of specified type.",
         epilog="Look you want something from me and I want something from you. DOD Base 128 Bit Encryption. What do you think?"
     )
     parser.add_argument("-l", dest='length', type=int, action="store", default=8, help="Flag to set the length of password(s) to randomly generate. If not set default length of 8 will be used")
