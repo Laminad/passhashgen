@@ -19,7 +19,7 @@ This library is for research and practice purposes. It should be used with hashc
 If you have a request, find a bug, or would like to help with this endevor, submit an issue or pull request on https://github.com/Laminad/passhashgen
 
 ### Known Issues
-Fix log file pathing so that logs can write outside of install directory (I believe this is fixed. Validated on Windows)
+Fix log file pathing so that logs can write outside of install directory (Getting file permission errors writing to /var/log on Linux)
 
 # Dislcaimer
 Please do not use this for production password hashing implementations. It has not been validated or designed for that use case. 
